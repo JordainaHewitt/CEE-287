@@ -25,7 +25,7 @@ Tn1  = 0.5;
 z1   = 0.05;
 Cy1  = 0.25;
 
-[u1, ud1, udd1, Fs1, Sd1, mu1] = SDOF_Response_NL(...
+[u1, ud1, udd1, Fs1, Sd1, mu1] = SDOF_Response_NL_1(...
     Tn1, z1, ag, dt, 0, 0, Cy1, 'Cy', 'average');
 
 % Rebuild time vector (may have been interpolated inside function)
@@ -42,7 +42,7 @@ Tn2  = 1.0;
 z2   = 0.05;
 Cy2  = 0.15;
 
-[u2, ud2, udd2, Fs2, Sd2, mu2] = SDOF_Response_NL(...
+[u2, ud2, udd2, Fs2, Sd2, mu2] = SDOF_Response_NL_1(...
     Tn2, z2, ag, dt, 0, 0, Cy2, 'Cy', 'average');
 
 t2 = (0:length(u2)-1)' * (Tn2/40);
@@ -58,9 +58,9 @@ fprintf('Peak restoring Fs  = %.4f (normalized by W: %.4f)\n', ...
 % In that case ductility demand should be ~1.0
 Cy_elastic = 10.0;   % much larger than PGA, system stays elastic
 
-[u1e, ~, ~, ~, Sd1e, mu1e] = SDOF_Response_NL(...
+[u1e, ~, ~, ~, Sd1e, mu1e] = SDOF_Response_NL_1(...
     Tn1, z1, ag, dt, 0, 0, Cy_elastic, 'Cy', 'average');
-[u2e, ~, ~, ~, Sd2e, mu2e] = SDOF_Response_NL(...
+[u2e, ~, ~, ~, Sd2e, mu2e] = SDOF_Response_NL_1(...
     Tn2, z2, ag, dt, 0, 0, Cy_elastic, 'Cy', 'average');
 
 fprintf('\n--- Elastic check (Cy=%.1f, should give mu~1) ---\n', Cy_elastic);
@@ -73,7 +73,7 @@ k1  = wn1^2;            % unit mass
 Fy1 = Cy1 * 1 * g;
 uy1 = Fy1 / k1;
 
-[u1_uy, ~, ~, ~, Sd1_uy, mu1_uy] = SDOF_Response_NL(...
+[u1_uy, ~, ~, ~, Sd1_uy, mu1_uy] = SDOF_Response_NL_1(...
     Tn1, z1, ag, dt, 0, 0, uy1, 'uy', 'average');
 
 fprintf('\n--- Input type check: Cy vs uy should give identical results ---\n');
