@@ -271,13 +271,17 @@ for i = 1:length(Cy_range)
 end
 
 % Plot the results for Structure 1 and Structure 2
-figure;
-plot(Cy_range, mu_range_1, 'r', 'LineWidth', 1);
+figure('Name', 'Part e', 'Position', [100 100 900 700])
+plot(mu_range_1,Cy_range, 'r', 'LineWidth', 1);
 hold on;
-plot(Cy_range, mu_range_2, 'g', 'LineWidth', 1);
-xlabel('C_y');
-ylabel('Displacement Ductility Demand \mu');
+plot( mu_range_2, Cy_range, 'g', 'LineWidth', 1);
+ylabel('C_y');
+xlim([0 20]);
+xlabel('Displacement Ductility Demand \mu');
 title('Ductility Demand vs. C_y for Structures 1 and 2');
 legend('Structure 1', 'Structure 2');
 grid on;
 hold off;
+% Apply the requested ylim command with correct syntax
+
+
