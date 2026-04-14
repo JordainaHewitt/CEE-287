@@ -211,7 +211,12 @@ for i = 1:n-1
 end
 
 %% Output Spectral Quantities
+% Inelastic displacement spectral ordinate calculation (peak relative
+        % displacement)
 Sd_inelastic = max(abs(u));
+
+% Peak displacement ductility demand (peak relative displacement/yield
+        % displacement)
 mu           = Sd_inelastic / uy;   % peak ductility demand
 
 end
