@@ -253,8 +253,31 @@ fprintf('Tn=%.1fs: Cy_exact=%.4f  Cy_approx=%.4f  diff=%.1f%%\n', ...
 
 %% Part e
 % Generate a Cy range from 0 to above elastic
-Cy_range_1 = 0:0.0001:2*Cy_el_1_u;
-Cy_range_2 = 0:0.0001:2*Cy_el_2_u;
+Cy_range = 0:0.001:Cy_el_1_u;
+
 
 % Create vectors for mu
-mu_range_1 = zeros()
+mu_range_1 = zeros(1,length(Cy_range));
+mu_range_2 = zeros(1,length(Cy_range));
+
+% Calculate mu for each Cy in the range for Structure 1
+for i = 1:length(Cy_range)
+    [~,~,~,~,~,mu_range_1(i)] = SDOF_Response_NL_1(Tn1, z, ag, dt, 0, 0, Cy_range(i), 'Cy', 'linear');
+end
+
+% Calculate mu for each Cy in the range for Structure 2
+for i = 1:length(Cy_range)
+    [~,~,~,~,~,mu_range_2(i)] = SDOF_Response_NL_1(Tn2, z, ag, dt, 0, 0, Cy_range(i), 'Cy', 'linear');
+end
+
+% Plot the results for Structure 1 and Structure 2
+figure;
+plot(Cy_range, mu_range_1, 'r', 'LineWidth', 1);
+hold on;
+plot(Cy_range, mu_range_2, 'g', 'LineWidth', 1);
+xlabel('C_y');
+ylabel('Displacement Ductility Demand \mu');
+title('Ductility Demand vs. C_y for Structures 1 and 2');
+legend('Structure 1', 'Structure 2');
+grid on;
+hold off;
